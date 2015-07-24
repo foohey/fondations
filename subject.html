@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>DVC3 - Fondation</title>
+
+    <link href="subject_files/bootstrap.css" type="text/css" rel="stylesheet">
+  <link href="subject_files/sujet-html.css" type="text/css" rel="stylesheet">
+  <link href="subject_files/police.htm" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+  <h2>Prélude à la fondation</h2>
+  <p>
+    Après plus d'une décennie à errer dans les confins de l'espace vous atterrissez sur une planète bien singulière : Trantor<br>
+    Votre mission consistera à faire vos premiers pas sur cette planète pauvre en ressource et dirigée par des scientifiques<br> suivant aveuglement un principe instauré par leur chef spirituel Hari Seldon, la psychohistoire !
+  </p>
+  <h2>Fondation</h2>
+  <div class="notice">
+    <p><b>Dossier de rendu </b>: https://rendu-svn.etna-alternance.net/v2/2018_Bachelor - Mars_TIC-DVC3_2_0-1355/Projet Fondations/robard_m</p>
+    <p><b>Langage à utiliser </b>: C</p>
+    <p><b>Nom du binaire à rendre </b>: fondation</p>
+    <p><b>Makefile :</b> Obligatoire</p>
+    <p><b>Libraries autorisées :</b> Ncurses, Gtk+, SFML, SDL (pour la partie graphique uniquement)</p>
+    <p><b>Fonctions autorisées :</b> malloc, free, read, open, write, 
+perror, close, htons, inet_addr, fonctions de création et de 
+manipulation des sockets TCP (socket, connect) à l'exception de send et 
+recv</p>
+  </div>
+  <div class="forbidden">
+    Toutes les fonctions qui ne sont pas explicitement autorisées sont interdites. Utilisez le forum si vous avez des doutes.<br>
+    Votre programme doit compiler et fonctionner sans erreurs sous Debian Wheezy.<br>
+    Break, switch case, exit() interdits.<br>
+
+  </div>
+  <div class="warning">
+    <ul>
+      <li>Vous devez coder impérativement à la norme</li>
+      <li>Votre projet doit compiler avec les flags -W -Wall -Werror</li>
+      <li>Si vous utilisez votre libmy, elle doit être complilée séparément et présente dans votre répertoire de rendu</li>
+    </ul>
+  </div>
+  <h3>Consignes</h3>
+  Vous devez créer un programme capable de communiquer avec un serveur via les sockets TCP.<br>
+  Le serveur vous est fourni.
+  Vous devrez respecter le shéma de conversation suivant :
+  <br>
+  <br>
+  <div class="container">
+    <table class="table table-striped">
+      <tbody><tr>
+       <th>Description commande</th>
+       <th>Commande</th>
+       <th>Réponse</th>
+       <th>Description réponse</th>
+     </tr>
+
+     <tr>
+       <td>Authentification</td>
+       <td>/auth [prénom]:[nom]\n</td>
+       <td>/ok\n</td>
+       <td>Authentification réussie</td>
+     </tr>
+     <tr>
+       <td>Liste des habitants</td>
+       <td>/list\n</td>
+       <td></td>
+       <td>Envoi la liste des habitants de Trantor*</td>
+     </tr>
+     <tr>
+       <td>Message de Hari Seldon</td>
+       <td>/hs\n</td>
+       <td></td>
+       <td>Envoi un message de Hari Seldon</td>
+     </tr>
+     <tr>
+       <td>Qu'est-ce que la psychohistoire ?</td>
+       <td>/psychohistory\n</td>
+       <td></td>
+       <td>Définition de la notion</td>
+     </tr>
+     <tr>
+       <td>Statut habitant</td>
+       <td>/getstatus [prénom]:[nom]\n</td>
+       <td></td>
+       <td>Envoi le statut de l'habitant</td>
+     </tr>
+     <tr>
+       <td>Afficher infos personnelles</td>
+       <td>/me\n</td>
+       <td></td>
+       <td>Envoi information de l'utilisateur authentifié</td>
+     </tr>
+     <tr>
+       <td>Changer son statut</td>
+       <td>/setstatus [nouveau statut]\n</td>
+       <td>/ok\n</td>
+       <td>Changement de statut</td>
+     </tr>
+   </tbody></table>
+ </div>
+ <p>Votre programme doit quitter proprement via la commande : /bye\n<br>Cette
+ commande ne doit pas être envoyée au serveur. Elle doit provoquer la 
+déconnexion de votre socket et la fermeture de votre client.<br>Vous 
+devez ignorer les commandes de plus de 250 charactères. En revanche les 
+réponses serveur peuvent être arbitrairement grandes, vous ne devez pas 
+les tronquer.</p>
+ <div class="warning">
+  <p>Si une commande échoue ou est inconnue, vous recevrez : /ko\n</p>
+</div>
+<p>
+  Le client doit se lancer par le biais de la commande suivante :
+</p>
+<pre class="terminal">  sheldon@trantor.net $&gt; ./fondation --ip [n'importe quelle ip] --port 4242
+</pre>
+<div class="notice">
+  *La liste des habitants est représentée par une chaine de charactères dans laquelle les habitants sont séparés par des #<br>Toutes les réponses du serveur seront terminées par un \n<br>
+  Les crochets "[]" ne doivent pas être présents, ils symbolisent les données que vous devez fournir.<br>
+  Vous ne devez pas rajouter vous-mêmes les '\n' à la fin de vos 
+commandes. Ils représentent la touche entrer de votre clavier lors de la
+ saisie.
+</div>
+<ul class="keyPoints">
+  <li>N'hésitez pas à utiliser telnet ou netcat pour tester le comportement du serveur et adapter le comportement de votre client</li>
+  <li>Procédez par étape, ne cherchez pas à tout faire d'un coup</li>
+  <li>Faites des tests unitaires</li>
+  <li>Utilisez subversion pour faire du versioning et pas seulement pour faire votre rendu</li>
+  <li>Vérifiez les valeurs de retours de vos fonctions et faites des returns en cascade</li>
+  <li>N'hésitez pas à utiliser des macros judicieusement pour rendre votre code plus lisible</li>
+  <code class="multiline">
+    Example:
+
+    int     main()
+    {
+    if ((my_func(42)) == EXIT_FAILURE)
+    {
+    perror(__FUNCTION__);
+    return (EXIT_FAILURE);
+  }
+  return (EXIT_SUCCESS);
+}
+
+## Les macros __FUNCTION__ et __LINE__ sont prédéfinies aucune inclusion n'est nécessaire
+## Les macros EXIT_FAILURE et EXIT_SUCCESS nécessitent l'inclusion de &lt;stdlib.h&gt;
+</code>
+</ul>
+<p>
+  Vous devez afficher les données envoyées par le serveur. L'esthétisme de l'affichage sera pris en compte dans la notation.<br>
+  Vous êtes libre de faire un affichage en ligne de commande. Ou pour 
+les plus hardis d'entre vous, de créer une interface graphique.
+</p>
+<p>
+  <b>Bon courage Trantoriens !</b>
+</p>
+</div>
+
+
+</body></html>
